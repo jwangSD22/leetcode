@@ -28,6 +28,6 @@ while(word1.length>0 || word2.length >0){
 return final.join('')
 
 
-        
-    };
+};
 
+console.log(mergeAlternately('alb'))
