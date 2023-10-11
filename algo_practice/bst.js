@@ -128,8 +128,34 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
   };
 
+const invert = (node) => {
+
+    if(!node){
+        return 
+    }
+    else{
+
+        let temp 
+
+        invert(node.left)
+        invert(node.right)
+    
+
+        temp = node.left
+
+        node.left = node.right
+
+        node.right = temp
+        
+    
+        return node
+    }
+
+
+}
+
 prettyPrint(booty.root)
 
-console.log(booty.levelOrder())
+invert(booty.root)
 
-console.log(booty.levelOrderRecursive())
+prettyPrint(booty.root)
