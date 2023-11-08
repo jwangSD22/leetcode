@@ -2,7 +2,6 @@
 
 ////TODO --> CAN YOU DO THIS IN o(n) time and o(1) SPACE?!
 
-
 /**
  * Definition for singly-linked list.
  * function ListNode(val, next) {
@@ -14,37 +13,30 @@
  * @param {ListNode} head
  * @return {boolean}
  */
+var isPalindrome = function(head) {
 
-class ListNode{
-    constructor(val){
-        this.val = val
-        this.next = null
+    if(!head){
+        return null
     }
-}
 
-// var isPalindrome = function(head, string = '') {
-//     if (head) {
-//         string += head.val;
-//     } else {
-//         return string === string.split('').reverse().join('');
-//     }
+    let a = []
+
+    let current = head
+    while(current){
+
+        a.push(current.val)
+        current = current.next
+    }
+
     
-//     return isPalindrome(head.next, string);
-// };
 
-var isPalindrome = function (head){
+    let i = a.join('')
+    let j = a.reverse().join('')
 
-}
+    return i===j
 
+    
+    
 
-
-let myList =  new ListNode(1)
-let nextNode = new ListNode(2)
-let thirdNode = new ListNode(3)
-
-myList.next = nextNode
-nextNode.next = thirdNode
-
-
-
-
+    
+};

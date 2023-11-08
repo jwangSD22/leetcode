@@ -179,4 +179,4 @@ class Queen{
 
 let booty = new SolveQueens(4)
 
-booty.solve()
+console.log(booty.solve())
