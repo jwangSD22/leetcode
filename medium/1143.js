@@ -47,6 +47,7 @@ const helper = (stack,long) =>{
 
 
         //logic here to go thru indices of the stack
+        
 
 
           
