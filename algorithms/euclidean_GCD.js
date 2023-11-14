@@ -23,5 +23,3 @@ function gcd(a, b) {
 // ##### The algorithm is based on the principle that the GCD of two numbers is the same as the GCD of the smaller number and the remainder when the larger number is divided by the smaller number.
 
 
-console.log(gcd(48,18))
-

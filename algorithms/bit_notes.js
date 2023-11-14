@@ -6,11 +6,16 @@
 
 // n&(n-1) is a common trick to check if n is a power of two 
 
-// if n is a power of two, it has exactly one bit set in its binary representation
+// if n is a power of two, n & (n-1) will return 0
+
+// n&(n-1) WILL ALWAYS CLEAR THE RIGHTMOST BIT
+
+//in the cases of a power of 2, it only has 1 bit anyway, so that's why the expression equates to 0 
 
 // remember each bit is a representation of 2**n
 
-
+console.log(5&~4)
+console.log(6&~5)
 
 // FINDING POWER OF FOUR
 
