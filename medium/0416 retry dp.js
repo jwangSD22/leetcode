@@ -18,17 +18,28 @@
 // Output: false
 // Explanation: The array cannot be partitioned into equal sum subsets.
 
-var canPartition = function(nums) {
-    
+var canPartition = function (nums) {
+    const totalSum = nums.reduce((acc, item) => acc + item, 0);
+    if (totalSum % 2) return false;
+    const target = totalSum / 2;
+    const dp = new Array(nums.length).fill(-1).map(() => new Array(target + 1).fill(-1));
 
+    console.log(dp)
+
+    function dfs(idx, target) {
+        if (target === 0) return true;
+        if (target < 0) return false;
+        if (dp[idx][target] !== -1) return dp[idx][target];
+
+        for (let i = idx + 1; i < nums.length; i++) {
+            if (dfs(i, target - nums[idx]) || dfs(i, target)) return true;
+        }
+        return dp[idx][target] = false;
+    }
+
+    
+    return dfs(0, target);
 
 };
 
-let array =  [1,2,3]
-
-console.log(array[4]=array[4])
-
-console.log(array)
-
-
-console.log(!!array[])
+console.log(canPartition([1,2,3]))
