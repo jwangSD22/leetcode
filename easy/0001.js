@@ -5,20 +5,21 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    let hash = {}
+
+
+    for(let i = 0;i<nums.length;i++){
+        for(let j = 0; j<nums.length;j++){
+            if(i!==j&&nums[i]+nums[j]===target){
+                return [i,j]
+            }
+        }
+    }
+
+
+
+
+
     
-    for(let i = 0 ; i<nums.length;i++){
-        if (hash[nums[i]]!==undefined){
-            return [i,hash[nums[i]]]
-            
-        }
-        else if (hash[target-nums[i]]===undefined){
-            hash[target-nums[i]]=i
-
-        }
-
-    }    
 };
 
-// test
-
+console.log(twoSum([3,2,4],6))
