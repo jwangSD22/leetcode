@@ -1,84 +1,26 @@
-import { useEffect, useState } from 'react';
-import './styles.css';
+/**
+ * @param {number} x
+ * @return {boolean}
+ */
+var isPalindrome = function(x) {
+  if(x<0){
+      return false
+  }
+  let temp = x
+  let flipped = 0
 
-const getCountryIds = (countries) => {
-  return countries.map((country) => country.id);
+  while(temp>=1){
+      let remainder = temp%10
+      temp = Math.floor(temp/10)
+      flipped*=10
+      flipped+=remainder
+  }
+
+
+return flipped===x
+
+
+
+
 };
-
-export default function App() {
-
-  const countries = [
-    {
-      id: 1,
-      countryName: 'India',
-    },
-    {
-      id: 2,
-      countryName: 'USA',
-    },
-    {
-      id: 3,
-      countryName: 'France',
-    },
-  ];
-
-  const [isAllChecked, setIsAllChecked] = useState(false);
-  const [checkedCountries, setCheckedCountries] = useState([]);
-
-  useEffect(() => {
-    setIsAllChecked(checkedCountries.length === countries.length);
-  }, [checkedCountries]); //TODO: handle dependency
-
-  const handleCheckBoxToggle = (countryId) => {
-    if (checkedCountries.includes(countryId)) {
-      setCheckedCountries((prevCheckedCountries) => {
-        return prevCheckedCountries.filter(
-          (prevCountryId) => countryId !== prevCountryId
-        );
-      });
-    } else {
-      setCheckedCountries((prevCheckedCountries) => [
-        ...prevCheckedCountries,
-        countryId,
-      ]);
-    }
-  };
-
-  const handleCheckAll = () => {
-    setIsAllChecked((prevIsAllChecked) => {
-      const toggled = !prevIsAllChecked;
-      if (toggled) {
-        setCheckedCountries([...getCountryIds(countries)]);
-      } else {
-        setCheckedCountries([]);
-      }
-      return toggled;
-    });
-  };
-
-  return (
-    <div className='App'>
-      <div>
-        <input
-          type='checkbox'
-          checked={isAllChecked}
-          onClick={handleCheckAll}
-        />
-        Select All
-      </div>
-
-      {countries.map((country) => (
-        <div id={country.id}>
-          <input
-            type='checkbox'
-            checked={checkedCountries.includes(country.id)}
-            onClick={() => {
-              handleCheckBoxToggle(country.id);
-            }}
-          />
-          {country.countryName}
-        </div>
-      ))}
-    </div>
-  );
-}
+console.log(isPalindrome(123))
