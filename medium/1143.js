@@ -5,58 +5,24 @@
  */
 var longestCommonSubsequence = function(text1, text2) {
 
-    let stack = []
-    let long
+    let dp = new Array(text1.length+1).fill(null).map(() => new Array(text2.length+1).fill(0));
 
-    if(text1.length>text2.length){
-        long=text1
-        stack=text2.split('')
-    }
-    else{
-        long=text2
-        stack=text1.split('')
-    }
-
-    let max = 0
-
-    while(stack.length>0){
-        let count = helper(stack,long)
-
-        console.log(stack)
-        console.log(count)
- 
-        if(count>max){
-            max=count
+    for(let i = text1.length-1;i>=0;i--){
+        for(let j = text2.length-1;j>=0;j--){
+            if(text1[i]===text2[j]){
+                dp[i][j] = dp[i+1][j+1] + 1
+            }
+            else{
+                dp[i][j]= Math.max(dp[i][j+1],dp[i+1][j])
+            }
         }
-
-
-
-        stack.pop()
     }
 
-    return max    
+    console.log(dp)
+
+    return dp[0][0]
+
+    
 };
 
-
-const helper = (stack,long) =>{
-    let temp = [...stack]
-    let maxIndex = temp.length-1
-    let counter = 0
-
-    for(let i = long.length-1;i>=0;i--){
-
-
-        //logic here to go thru indices of the stack
-        
-
-
-          
-
-    }
-
-    return counter
-
-}
-
-
-console.log(longestCommonSubsequence('hofubmnylkra','pqhgxgdofcvmr'))
+console.log(longestCommonSubsequence('xaced','yabcd'))
