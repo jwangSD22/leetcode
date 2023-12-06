@@ -6,9 +6,6 @@
 var getSum = function(a, b) {
 
     // find the carry and shift left 1 space
-
-
-
     let carry = (a&b)<<1
     let reg = a^b
 

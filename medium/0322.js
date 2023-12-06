@@ -6,26 +6,33 @@
  * @return {number}
  */
 var coinChange = function(coins, amount) { 
-    let result = countCoinChange(coins, amount)
-    return result === Infinity ? -1 : result
-};
+    if (amount <= 0) {
+        return 0;
+      }
+    let max = amount+1
+    let dp = Array(amount+1).fill(max)
+    
 
-const countCoinChange = (coins, amount) => {
-    if(amount === 0) return 0
-    if(amount < 0) return Infinity
+    dp[0]=0
 
-    let min = Infinity 
+    for(let i = 1;i<amount+1;i++){
+        for(let coin of coins){
+            if(coin<=i){
+                dp[i]=Math.min(dp[i],dp[i-coin]+1)
+            }
+            }
+        }
+    
 
-    for(let coin of coins) {
-        const restAmount = amount - coin 
-        min = Math.min(countCoinChange(coins, restAmount) + 1, min) 
-    }
+    
+    return dp[amount]===max?-1:dp[amount]
+    
 
-  
-    return min
+
+
 }
 
-console.log(coinChange([1,2,5],10))
+console.log(coinChange([1,2,5],11))
 
 // so this is a dynamic programming problem
 
