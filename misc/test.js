@@ -1,26 +1,10 @@
-/**
- * @param {number} x
- * @return {boolean}
- */
-var isPalindrome = function(x) {
-  if(x<0){
-      return false
-  }
-  let temp = x
-  let flipped = 0
-
-  while(temp>=1){
-      let remainder = temp%10
-      temp = Math.floor(temp/10)
-      flipped*=10
-      flipped+=remainder
+function gcd (a,b) {
+  if(b===0){
+    return a
   }
 
-
-return flipped===x
-
-
+  return gcd (b,a%b)
+}
 
 
-};
-console.log(isPalindrome(123))
+console.log(gcd(35,14))
