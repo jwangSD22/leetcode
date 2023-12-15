@@ -1,24 +1,32 @@
 /**
- * @param {number[]} nums
- * @param {number} k
- * @return {boolean}
+ * @param {string} s
+ * @return {number}
  */
-var containsNearbyDuplicate = function(nums, k) {
+var lengthOfLongestSubstring = function (s) {
 
-    let h = new Map()
 
-for(let i = 0 ; i<nums.length-1; i ++ ){
+    let max = 0
+    let set = new Set()
+    let pointer = 0
 
-    if(i-h.get(nums[i])<=k){
-        return true
+    for (let i = 0; i < s.length; i++) {
+
+        if (set.has(s[i])) {
+            while (set.has(s[i])) {
+                set.delete(s[pointer])
+                pointer++
+            }
+        }
+
+        set.add(s[i])
+
+        max = Math.max(max, set.size)
     }
-    
-    h.set(nums[i],i)
 
-
-}
-
-    return false
+    return max
 
 
 };
+
+
+console.log(lengthOfLongestSubstring('pwkwer'))
