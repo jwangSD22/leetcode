@@ -2,14 +2,18 @@ const bs = (nums,target) => {
 
     let lo = 0 
     let hi = nums.length - 1 
+
    //think about [1,3]
+
     while(lo<=hi){
+
+        // it's okay to use bit manipulation to divide and find the middle lower in this case because we are using pointers on the array (which will always be positive) 
+        // so we don't have to deal with a signed integer
         let mid = (lo+hi)>>1
-        // lo = 0 , mid = 0 , hi = 1 
-        console.log(lo,mid,hi)
+
 
         if(nums[mid]===target){
-            return mid
+            return nums[mid]
         }
 
         if(target<nums[mid]){
@@ -24,17 +28,17 @@ const bs = (nums,target) => {
 
     }
 
-
-
-    return lo
+    return nums[lo]
 
 }
 
 
 
-let nums = [0,1,4,5,6,7,8,9,10]
 
-console.log(bs(nums,2))
+
+let nums = [-10,-9,-8,-7,-6,-3,-1,0,1,4,5,6,7,8,9,10]
+
+console.log(bs(nums,-1))
 
 // if return lo, this will find the UPPER BOUND -- as you see here, searching for 2 in array:nums will result in index 2, which is 4. since 2 falls inbetween 1 and 4 in this array.
 
