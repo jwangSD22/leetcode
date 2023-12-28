@@ -3,37 +3,8 @@ class ListNode{
         this.val = val
         this.next = null
         this.prev = null
-
     }
 }
-
-class LinkedListBuilder {
-    constructor(array){
-        this.head = null
-        this.array = array
-    }
-    
-     ListNode(val, next) {
-        this.val = (val===undefined ? 0 : val)
-        this.next = (next===undefined ? null : next)
-     }
-    
-     construct(){
-        this.head = new ListNode(this.array[0])
-        let current = this.head
-        for(let i = 1 ; i<this.array.length;i ++){
-            let newNode = new ListNode(this.array[i])
-            current.next = newNode
-            current = newNode
-        }
-     }
-    
-     getList(){
-        return this.head
-     }
-    }
-    
-
 
 class doubleLL {
 
@@ -61,9 +32,6 @@ class doubleLL {
             this.head=null
             this.end=null
             return node
-        }
-        if(!this.end){
-            return null
         }
         let returnNode = this.end
         this.end = this.end.prev
@@ -142,7 +110,6 @@ class doubleLL {
             previous=current
             current=current.next
         }
-        this.end=previous
 
         return this.head
     }
@@ -150,37 +117,8 @@ class doubleLL {
 
 }
 
-var reorderList = function(head) {
-
 let m = new doubleLL()
 
- m.convert(head)
-
-let dummy = new ListNode(-1)
-let start = dummy
-let toggle = false
-
-while(m.head){
-    if(!toggle){
-        let node = m.dequeue()
-            dummy.next = node
-    }
-    else{
-        let node = m.pop()
-            dummy.next = node
-    }
-    dummy=dummy.next
-    toggle=!toggle
-}
 
 
-return start.next
 
-}
-
-let booty = new LinkedListBuilder([1,2,3,4,5,6])
-booty.construct()
-booty = booty.getList()
-
-
-console.log(reorderList(booty))

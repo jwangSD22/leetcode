@@ -17,7 +17,7 @@ const bs = (nums,target) => {
         }
 
         if(target<nums[mid]){
-            hi = mid -1
+            hi = mid - 1
         }
         else{
             lo = mid + 1
@@ -36,9 +36,14 @@ const bs = (nums,target) => {
 
 
 
-let nums = [-10,-9,-8,-7,-6,-3,-1,0,1,4,5,6,7,8,9,10]
+let nums = [0,1,4,5,6,7,8,9,10]
 
-console.log(bs(nums,-1))
+
+
+
+if(!bs(nums,-1)){
+    console.log('booty')
+}
 
 // if return lo, this will find the UPPER BOUND -- as you see here, searching for 2 in array:nums will result in index 2, which is 4. since 2 falls inbetween 1 and 4 in this array.
 
