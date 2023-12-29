@@ -12,58 +12,28 @@ var copyRandomList = function(head) {
     let m = new Map()
 
     let current = head
-    let indexCounter = 0
     while(current){
-        m.set(current,indexCounter)
-        indexCounter++
+        m.set(current,new ListNode(current.val))
         current = current.next
     }
 
+    //new nodes are all set into map 
     
     current = head
-
     while(current){
+        let node = m.get(current)
+        node.next = m.get(current.next)
 
-        if(current.random===null){
-            current.index=null
-        }
-        else{
-            current.index = m.get(current.random)
-        }
+        let attach = m.get(current.random)
+
+        node.random=attach
+
         current=current.next
     }
 
-    let dummy = new ListNode(-1,null,null)
-    let start = dummy
-    let array = []
+    return m.get(head)
 
 
-    current = head
-    while(current){
-        let newNode = new ListNode(current.val)
-        array.push(newNode)
-        dummy.next = newNode
-        dummy.next.index = current.index
-        dummy = dummy.next
-        current=current.next
-    }
-
-    current=start.next
-    while(current){
-        if(current.index===null){
-            current.random=null
-        }
-        else{
-            current.random=array[current.index]
-        }
-        current=current.next
-
-    }
-
-
-
-
-    return start.next
 
 
 };
@@ -78,4 +48,4 @@ c.random = null
 a.next = b
 b.next = c
 
-copyRandomList(a)
+console.log(copyRandomList(a))

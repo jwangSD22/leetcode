@@ -1,3 +1,47 @@
+function ListNode(val, next) {
+    this.val = (val===undefined ? 0 : val)
+    this.next = (next===undefined ? null : next)
+ }
+
+
+class LinkedListBuilder {
+constructor(array){
+    this.head = null
+    this.array = array
+}
+
+ ListNode(val, next) {
+    this.val = (val===undefined ? 0 : val)
+    this.next = (next===undefined ? null : next)
+ }
+
+ construct(){
+    this.head = new ListNode(this.array[0])
+    let current = this.head
+    for(let i = 1 ; i<this.array.length;i ++){
+        let newNode = new ListNode(this.array[i])
+        current.next = newNode
+        current = newNode
+    }
+ }
+
+ getList(){
+    return this.head
+ }
+}
+
+let booty = new LinkedListBuilder([1,3,7])
+booty.construct()
+
+let cheeks = new LinkedListBuilder([9,2])
+cheeks.construct()
+
+let m = booty.getList()
+
+let n = cheeks.getList()
+731
+ 29
+
 /**
  * Definition for singly-linked list.
  * function ListNode(val, next) {
@@ -10,45 +54,56 @@
  * @param {ListNode} l2
  * @return {ListNode}
  */
-var addTwoNumbers = function(l1, l2) {
-    
+var addTwoNumbers = function(l1, l2,) {
 
-    function traverse(node,string=''){
+    let carry = false
+    let dummy = new ListNode(-1)
+    let start = dummy
+    while(l1||l2){
+        let list1 = l1?l1.val:0
+        let list2 = l2?l2.val:0
+        let sum = list1+list2
+        console.log(sum)
+  
+        let rem = sum%10
+
+        if(carry)rem+=1
+        carry=false
+
         
-        if(!node){
-            return string
+        if(sum>=10||rem>=10)carry=true
+
+        dummy.next = new ListNode(rem===10?0:rem)
+
+        dummy=dummy.next
+
+        if(l1){
+            l1=l1.next
+
         }
-        return traverse(node.next,string+node.val.toString())
-    }
+        if(l2){
+            l2=l2.next
+
+        }
+
+
     
-    let list1 = traverse(l1)
-    let list2 = traverse(l2)
 
 
-    list1 = list1.split('').reverse().join('')
-    list2 = list2.split('').reverse().join('')
-
-
-    let sum = BigInt(list1)+BigInt(list2)
-
-    sum = sum.toString().split('')
-
-    let finalLL = new ListNode(Number(sum.pop()))
-
-    let current = finalLL
-
-    while(sum.length>0){
-
-        current.next = new ListNode(Number(sum.pop()))
-
-        current = current.next
-        
     }
 
 
+    if(carry){
+        dummy.next = new ListNode(1)
+    }
 
-    return finalLL
+
+    
+    return start.next
 
 
 
 };
+
+console.log(addTwoNumbers(m,n))
+
