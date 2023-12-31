@@ -94,6 +94,7 @@ class doubleLL {
     }
 
     build(array){
+        this.head = null
         for(let i = 0 ; i < array.length ; i++){
             this.push(array[i])
         }

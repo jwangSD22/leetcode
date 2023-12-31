@@ -1,120 +1,46 @@
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
+
+ function ListNode(val) {
+     this.val = val;
+     this.next = null;
+ }
 
 /**
  * @param {ListNode} head
  * @return {ListNode}
  */
-var detectCycle = function(head) {
-
-    //edge cases where there's no head or only one node
-
-    if(!head){
-        return null
-    }
-    if(head.next===null||head.next===undefined){
-        return null
-    }
-
-
-    let t = head
-    let h = head
-
-
-
-    //floyd loop detection algo
-
-    while(true){
-
-        t = t.next
-        h = h.next.next
-
-        if(h === null|| h.next===null|| h === undefined){
-            return null
-        }
-
-
-
-        if(t===h){
-            break
-        }
+const detectCycle = head => {
+    let p1 = head;
+    let p2 = head;
     
+    while (p2 && p2.next && p2.next.next) {
+      p1 = p1.next;
+      p2 = p2.next.next;
+      if (p1 === p2) {
 
-    
+        return detectCyclePos(head, p2);
+      }
     }
-
-
-    // count the total number of nodes in the loop
-    let loopDetectedAt = t
-    let current = t
-
-    let count = 1
-    while(current.next){
-        current = current.next
-        if(current!==loopDetectedAt){
-            count+=1
-        }
-        else{
-            break
-        }
+    return null;
+  };
+  
+  //phase 2 helper function to determine the actual cycle point (not just where the pointers intersected)
+  const detectCyclePos = (head, intersection) => {
+    let p1 = head;
+    let p2 = intersection;
+    while (p1 !== p2) {
+      p1 = p1.next;
+      p2 = p2.next;
     }
+    return p1;
+  };
+let test3 = new ListNode(3)
+let test2 = new ListNode(2)
+let test0 = new ListNode(0)
+let test4 = new ListNode (4)
 
+test3.next = test2
+test2.next= test0
+test0.next = test4
+test4.next = test2
 
-    // set one pointer to head and another pointer xyz number of nodes +head derived from prev step
-
-
-    let start = head
-
-    for(let i = 0;i<count;i++){
-        start = start.next
-    }
-
-
-
-    let newHead = head
-
-
-    //keep incrementing by 1 node and you will end up at the loop origin
-    
-    while(newHead!==start){
-        newHead = newHead.next
-        start = start.next
-    
-      
-    }
-
-    return newHead
-
-
-    
-    
-};
-
-
-//  function ListNode(val) {
-//         this.val = val;
-//         this.next = null;
-//  }
-
-//  let one = new ListNode(3)
-
-//  let two = new ListNode(2)
- 
-//  let three = new ListNode(0)
-
-//  let four = new ListNode(-4)
-
-//  one.next = two
-
-//  two.next = three
- 
-//  three.next = four
-
-//  four.next = two
-
-//  console.log(detectCycle(one))
+console.log(detectCycle(test3))

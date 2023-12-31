@@ -150,37 +150,38 @@ class doubleLL {
 
 }
 
-var reorderList = function(head) {
-
-let m = new doubleLL()
-
- m.convert(head)
-
-let dummy = new ListNode(-1)
-let start = dummy
-let toggle = false
-
-while(m.head){
-    if(!toggle){
-        let node = m.dequeue()
-            dummy.next = node
-    }
-    else{
-        let node = m.pop()
-            dummy.next = node
-    }
-    dummy=dummy.next
-    toggle=!toggle
-}
-
-
-return start.next
-
-}
-
 let booty = new LinkedListBuilder([1,2,3,4,5,6])
 booty.construct()
 booty = booty.getList()
 
 
-console.log(reorderList(booty))
+function reverserecur(head){
+
+    // we add !head here because we want to capture an initial issue where there is no head
+
+    //but otherwise the base case off the recursion needs to capture the node right before the end// we dont want to work on a null 
+    if(!head.next||!head){
+        return head
+    }
+
+    
+    // lets go all the way to the end of the list
+
+    let seg = reverserecur(head.next)
+
+    let q = head.next
+    head.next = null
+    q.next = head 
+
+    return seg
+
+
+
+
+
+    
+
+}
+
+console.log(reverserecur(booty))
+
