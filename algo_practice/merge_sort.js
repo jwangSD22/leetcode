@@ -4,7 +4,7 @@ const ms  = (array) => {
         return array
     }
  
-    let m = Math.floor(array.length/2)
+    let m = array.length>>1
 
     let left = ms(array.slice(0,m))
     let right = ms(array.slice(m))
