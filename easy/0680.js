@@ -1,43 +1,36 @@
-//680 valid palindrome 2
-
 /**
  * @param {string} s
  * @return {boolean}
  */
 var validPalindrome = function(s) {
 
-    let main = s.split('')
-    let reverse = [...main].reverse()
+    let i =  0
+    let j = s.length-1
 
-
-    for(let i = 0; i<main.length;i++){
-        if(main[i]!==reverse[i]){
-
-            if(checkBoth(            [...main].splice(i,1),            [...reverse].reverse().splice(i,1).reverse()))
-            return true
-
-            else{
-                continue
-            }
+    while(i<j){
+        if(s[i]===s[j]){
+            i++
+            j--
+        }
+        else{
             
+            return scan(s,i-1,j)||scan(s,i,j-1)
         }
     }
 
+    return true
 
-    return false
-    
-
-
-
-
-        
-    };
-
-
-    function checkBoth(arr1,arr2){
-        let arr1 = main.join('')
-        let arr2 = reverse.reverse().join('')
-    
-    
-        return arr1===arr2
+    function scan(s,i,j){
+        while(i<j){
+            if(s[i]===s[j]){
+                i++
+                j--
+            }
+            else{
+                return false
+            }
+        }
+        return true
     }
+    
+};
