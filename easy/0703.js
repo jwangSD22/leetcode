@@ -4,43 +4,24 @@ class KthLargest{
         this.k = k
 
         for(let num of nums){
-            this.insert(num)
+            this.add(num)
         }
     }
 
     add(val){
-        this.insert(val)
-        let tempArray = []
-        let counter = 0
-        while(counter!==this.k){
-            let dq = this.extract()
-            if(dq===0){
-                console.log('triggered')
-            }
-            tempArray.push(dq)
-            counter++
-        }
-
-        for(let x of tempArray){
-            this.insert(x)
-        }
-        
-        return tempArray[tempArray.length-1]
-    }
-    
-
-    insert(val){
         this.heap.push(val)
         let nodeIdx = this.heap.length-1
         let parentIdx = (nodeIdx-1)>>1
 
-        while(this.heap[nodeIdx]>this.heap[parentIdx]){
+        while(this.heap[nodeIdx]<this.heap[parentIdx]){
             this.swap(nodeIdx,parentIdx)
             nodeIdx = parentIdx
             parentIdx = Math.floor((nodeIdx-1)/2)
         }
-
-
+        if(this.heap.length>this.k){
+            this.extract()
+        }
+        return this.heap[0]
     }
 
     extract(){
@@ -48,44 +29,31 @@ class KthLargest{
             return null
         }
         if(this.heap.length===1){
-            return this.heap.pop()
+            this.heap.pop()
         }
 
-        let returnVal = this.heap[0]
-        this.heap[0] = this.heap.pop()
-        this.dequeue()
-
-        return returnVal
+        this.heap[0]=this.heap.pop()     
+        this.dq(0)
     }
 
-    dequeue(){
-        let nodeIdx = 0
-        let left = (nodeIdx*2)+1
-        let right = (nodeIdx*2)+2
-        let maxIdx
-        while(this.heap[nodeIdx]<this.heap[left]||this.heap[nodeIdx]<this.heap[right]){
-            
-            if(this.heap[left]>this.heap[right]){
-                maxIdx = left
-                
-            }else{
-                maxIdx = right
-                
-            }
-            this.swap(nodeIdx,maxIdx)
 
-            nodeIdx = maxIdx
-            left = (nodeIdx*2)+1
-            right = (nodeIdx*2)+2
-            
+    dq(i){
+        let min = i
+        let left = i*2 + 1
+        let right = i*2 + 2
 
-            if (left >= this.heap.length || right >= this.heap.length) {
-                break;
-              }
+        if(left<=this.heap.length&&this.heap[left]<this.heap[min]){
+            min=left
         }
-        
+        if(right<=this.heap.length&&this.heap[right]<this.heap[min]){
+            min=right
+        }
 
-        
+        if(i!==min){
+            this.swap(i,min)
+            this.dq(min)
+        }
+
     }
 
 
@@ -95,13 +63,9 @@ class KthLargest{
     }
 
 
-
 }
 
-let booty = new KthLargest(1,[])
 
-console.log(booty.add(-3))
-console.log(booty.add(-2))
-console.log(booty.add(-4))
-console.log(booty.add(0))
-console.log(booty.add(4))
+
+
+
