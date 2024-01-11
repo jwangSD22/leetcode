@@ -30,38 +30,30 @@ class Heap{
         let returnVal = this.heap[0]
         this.heap[0]=this.heap.pop()
 
-        this.trickleDown()
+        this.trickleDown(0)
 
         return returnVal
     }
 
-    trickleDown(){
-        let nodeIdx = 0 
+    trickleDown(nodeIdx){
+        let min = nodeIdx
         let left = nodeIdx*2 + 1
         let right = nodeIdx*2 + 2
 
-        while(this.heap[nodeIdx]>this.heap[left]||this.heap[nodeIdx]>this.heap[right]){
-
-            let min
-            if(this.heap[left]<this.heap[right]){
-                min = left
-            }
-            else{
-                min = right
-            }
-
-            this.swap(nodeIdx,min)
-
-            nodeIdx = min
-            left = nodeIdx*2 + 1
-            right = nodeIdx*2 + 2
-
-            if(left>this.heap.length||right>this.heap.length){
-                break
-            }
-
-
+        if(left<=this.heap.length&&this.heap[left]<this.heap[min]){
+            min=left
         }
+        if(right<=this.heap.length&&this.heap[right]<this.heap[min]){
+            min=right
+        }
+
+        if(nodeIdx!==min){
+            this.swap(nodeIdx,min)
+            this.trickleDown(min)
+        }
+
+
+
 
     }
 
@@ -84,5 +76,20 @@ console.log(booty.heap)
 console.log(booty.extract())
 console.log(booty.heap)
 
+console.log(booty.extract())
+console.log(booty.heap)
+
+console.log(booty.extract())
+console.log(booty.heap)
+console.log(booty.extract())
+console.log(booty.heap)
+console.log(booty.extract())
+console.log(booty.heap)
+console.log(booty.extract())
+console.log(booty.heap)
+console.log(booty.extract())
+console.log(booty.heap)
+console.log(booty.extract())
+console.log(booty.heap)
 console.log(booty.extract())
 console.log(booty.heap)

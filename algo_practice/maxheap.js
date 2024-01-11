@@ -18,8 +18,7 @@ class Heap {
     }
 
 
-    //trickle down
-    dequeue(){
+    extract() {
         if(this.heap.length===0){
             return null
         }
@@ -29,41 +28,34 @@ class Heap {
         let returnVal = this.heap[0]
         this.heap[0] = this.heap.pop()
 
-
-        let nodeIdx = 0
-        let left = (nodeIdx*2)+1
-        let right = (nodeIdx*2)+2
-        let maxIdx
-        while(this.heap[nodeIdx]<this.heap[left]||this.heap[nodeIdx]<this.heap[right]){
-            
-            if(this.heap[left]>this.heap[right]){
-                maxIdx = left
-                
-            }else{
-                maxIdx = right
-                
-            }
-            this.swap(nodeIdx,maxIdx)
-
-            nodeIdx = maxIdx
-            left = (nodeIdx*2)+1
-            right = (nodeIdx*2)+2
-            
-
-            if (left >= this.heap.length || right >= this.heap.length) {
-                break;
-              }
-        }
-        
-
-        
+        this.heapify(0)
         return returnVal
+    }
+
+
+    //trickle down
+    heapify(i){
+        let max = i
+        let left = (i*2)+1
+        let right = (i*2)+2
+   
+        if(left<=this.heap.length&&this.heap[left]>this.heap[max]){
+            max=left
+        }
+        if(right<=this.heap.length&&this.heap[right]>this.heap[max]){
+            max=right
+        }
+
+        if(i!==max){
+            this.swap(i,max)
+            this.heapify(max)
+        } 
     }
 
     superdq(){
         let array = []
         while(this.heap.length){
-            array.push(this.dequeue())
+            array.push(this.extract())
         }
 
         return array
@@ -82,6 +74,8 @@ booty.insert(3)
 booty.insert(2)
 booty.insert(8)
 booty.insert(10)
+booty.insert(4)
+booty.insert(0)
 booty.insert(1)
 
 console.log(booty.superdq())
