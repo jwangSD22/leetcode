@@ -9,6 +9,10 @@ class Heap{
         let nodeIdx = this.heap.length-1
         let parentIdx = Math.floor((nodeIdx-1)/2)
 
+        
+        console.log(this.heap[nodeIdx]<this.heap[parentIdx])
+
+
         while(this.heap[nodeIdx]<this.heap[parentIdx]){
             this.swap(nodeIdx,parentIdx)
             nodeIdx=parentIdx
@@ -66,30 +70,4 @@ class Heap{
 let booty = new Heap
 
 booty.insert(5)
-booty.insert(4)
-booty.insert(3)
-booty.insert(10)
-booty.insert(6)
 
-console.log(booty.heap)
-
-console.log(booty.extract())
-console.log(booty.heap)
-
-console.log(booty.extract())
-console.log(booty.heap)
-
-console.log(booty.extract())
-console.log(booty.heap)
-console.log(booty.extract())
-console.log(booty.heap)
-console.log(booty.extract())
-console.log(booty.heap)
-console.log(booty.extract())
-console.log(booty.heap)
-console.log(booty.extract())
-console.log(booty.heap)
-console.log(booty.extract())
-console.log(booty.heap)
-console.log(booty.extract())
-console.log(booty.heap)
