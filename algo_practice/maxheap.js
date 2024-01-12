@@ -23,12 +23,14 @@ class Heap {
             return null
         }
         if(this.heap.length===1){
+        
+  
             return this.heap.pop()
         }
         let returnVal = this.heap[0]
         this.heap[0] = this.heap.pop()
-
         this.heapify(0)
+
         return returnVal
     }
 
@@ -75,6 +77,7 @@ booty.insert(2)
 booty.insert(8)
 booty.insert(10)
 booty.insert(4)
+booty.insert(-4)
 booty.insert(0)
 booty.insert(1)
 

@@ -4,43 +4,107 @@
  * @return {number[]}
  */
 var topKFrequent = function(nums, k) {
-    let hash = {}
-    for(let i = 0; i <nums.length;i ++){
-        if(!hash[nums[i]]){
-            hash[nums[i]]=1
-        }
-        else{
-            hash[nums[i]]++
-        }
+
+
+    let h = new Map()
+    for (let num of nums){
+        h.set(num,(h.get(num)||0)+1)
     }
 
-    let array = []
-    for(let key in hash){
-        if(array[hash[key]]===undefined){
-        array[hash[key]]=[key]
-        }
-        else{
-            array[hash[key]].push(key)
-        }
+    let heap = new MaxHeap(h)
+
+    for(let [k,v] of h){
+
+        heap.add(k)
     }
 
-    console.log(array)
-
-    let answer = []
-    for(let i = array.length-1;i>0;i--){
-        if(array[i]!==undefined){
-            for(let num of array[i]){
-                answer.push(num)
-            }
-            if(answer.length===k){
-                return answer
-            }
-        }
+    let final = []
+    for(let i = 0 ;i<k;i++){
+        final.push(heap.extract())
     }
 
 
-
+    return final
 
 };
 
-console.log(topKFrequent([-1,-1],1))
+
+
+class MaxHeap {
+    constructor(map){
+        this.heap = []
+        this.map = map
+    }
+
+    add(val){
+        this.heap.push(val)
+        let nodeIdx = this.heap.length-1
+        let parent = (nodeIdx-1)>>1
+
+
+
+        while(this.convert(nodeIdx)>this.convert(parent)){
+            this.swap(nodeIdx,parent)
+            nodeIdx = parent
+            parent=(nodeIdx-1)>>1
+        }
+
+
+    }
+
+    convert(idx){
+        return this.map.get(this.heap[idx])
+    }
+
+    extract(){
+        if(this.heap.length===0){
+            return null
+        }
+        if(this.heap.length===1){
+            return this.heap.pop()
+        }
+
+        let returnVal = this.heap[0]
+        this.heap[0]=this.heap.pop()
+
+        this.heapify(0)
+
+
+        return returnVal
+    }
+    
+    heapify(i){
+
+        let length = this.heap.length
+        let max = i
+        let left = i*2+1
+        let right = i*2+2
+
+        if(left<=length&&this.convert(left)>this.convert(max)){
+            max = left
+        }
+        if(right<=length&&this.convert(right)>this.convert(max)){
+            max = right
+        }
+
+        if(i!==max){
+            this.swap(i,max)
+            this.heapify(max)
+        }
+
+
+
+    }
+
+    swap(i,j){
+        [this.heap[i],this.heap[j]]=[this.heap[j],this.heap[i]]
+
+    }
+
+
+}
+
+
+console.log(topKFrequent([5,-3,9,1,7,7,9,10,2,2,10,10,3,-1,3,7,-9,-1,3,3],3))
+
+
