@@ -61,13 +61,13 @@ class Interval {
         this.heap.push(val)
         let nodeIdx = this.heap.length-1
         let parentIdx = (nodeIdx-1)>>1 
-        if(parentIdx===-1){
+        if(parentIdx<0){
             parentIdx=0
         }       
         while(this.heap[nodeIdx]>this.heap[parentIdx]){
             this.swap(nodeIdx,parentIdx)
             nodeIdx=parentIdx
-            parentIdx = (nodeIdx-1)>>1 - 1
+            parentIdx = (nodeIdx-1)>>1 
         }
 
     }
@@ -123,14 +123,13 @@ class Interval {
 
             //handle max heap
             let extracted = this.extract()
-            if(!extracted){
-       
-            }else{
-                extracted-=1
-                if(extracted!=0){
-                    this.queue.push([extracted,this.counter+this.n+1])
-                }
-                
+
+            if(extracted!==null){
+
+                    if(extracted>1){
+                        extracted-=1
+                        this.queue.push([extracted,this.counter+this.n+1])
+                    }
             }
 
             this.counter++
@@ -145,9 +144,3 @@ class Interval {
     }
 
 }
-
-let tasks = ["A","A","A","A","A","A","B","C","D","E","F","G"]
-
-let booty = new Interval(tasks,2)
-
-console.log(booty.start())
